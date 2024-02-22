@@ -1,0 +1,196 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Kidney Stones Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+<!-- <styl>
+         nav {
+            background-color: teal;
+            color: teal;
+            padding: 10px 20px;
+        }
+
+        .navbar-brand {
+            background-color: teal !important;
+            font-size: 1.5em;
+            color: white !important; /* Override Bootstrap default color for navbar-brand */
+            text-decoration: none; /* Remove underline from the navbar-brand */
+        }
+
+        .navbar-nav {
+            background-color: teal !important;
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 0 10px;
+        }
+
+        .navbar-nav .nav-link {
+            background-color: teal !important;
+            color: white !important; /* Override Bootstrap default color for nav links */
+            text-decoration: none; /* Remove underline from the nav links */
+        }
+
+        .navbar-nav .nav-link.active {
+            color: teal !important; /* Change the font color for the active nav link */
+            background-color: teal;
+
+        }
+    </style> -->
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        background-color: #f0f5f5;
+    }
+
+    nav {
+        background-color: teal;
+        color: teal;
+        padding: 10px 20px;
+    }
+
+    .navbar-brand {
+        
+        font-size: 1.5em;
+        color: teal !important; /* Override Bootstrap default color for navbar-brand */
+        text-decoration: none !important; /* Remove underline from the navbar-brand */
+    }
+
+    .navbar-nav {
+        
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-nav .nav-item {
+        margin: 0 10px;
+    }
+
+    .navbar-nav .nav-link {
+        
+        color: teal !important; /* Override Bootstrap default color for nav links */
+        text-decoration: none !important; /* Remove underline from the nav links */
+    }
+
+    .navbar-nav .nav-link.active {
+        color: teal !important; /* Change the font color for the active nav link */
+    }
+
+        /* Custom style for the Predict button */
+        .btn-primary {
+            background-color: teal;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .btn-primarys:hover {
+            background-color: #008080; /* Darker teal color on hover */
+        }
+
+</style>
+</head>
+<body>
+    <!-- Navbar section -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Kidney Stones Prediction</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="prediction.html">Prediction<span class="sr-only">(current)</span></a> <!-- Added Prediction link -->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/doctors">Doctors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact Us</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- End Navbar section -->
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Kidney Stones Prediction</h1>
+
+        <form action="/predict_choice" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label class="mr-3"><input type="radio" name="choice" value="svm" required> SVM</label>
+                <label><input type="radio" name="choice" value="cnn" required> CNN</label>
+            </div>
+            <div class="form-group">
+                <label for="fileInput">Choose an ultrasound image:</label>
+                <input type="file" name="file" class="form-control-file" id="fileInput" accept=".jpg, .jpeg, .png" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+
+        <div class="image-preview mt-4" id="selectedImageLabel"> <!-- Use div instead of label for image preview -->
+             {% if selected_image %}
+                <p class="mb-2">Selected Image:</p>
+                <img src="{{ url_for('static', filename='uploads/' + selected_image) }}" alt="Selected Image" class="img-thumbnail">
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Display selected image when a file is chosen
+        document.getElementById('fileInput').addEventListener('change', function() {
+            var fileInput = this;
+            var selectedImageLabel = document.getElementById('selectedImageLabel');
+
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    // Create a new img element and set its src attribute
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.alt = 'Selected Image';
+                    img.classList.add('img-thumbnail');
+
+                    // Remove any existing image
+                    while (selectedImageLabel.firstChild) {
+                        selectedImageLabel.removeChild(selectedImageLabel.firstChild);
+                    }
+
+                    // Append the new img element to the selectedImageLabel
+                    selectedImageLabel.appendChild(img);
+                };
+
+                // Read the selected image as a data URL
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        });
+    </script> 
+</body>
+</html>
+

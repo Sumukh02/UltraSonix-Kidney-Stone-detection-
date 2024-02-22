@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="">
+
+    <title>UltraSonix</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS to center the login page content */
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        body {
+            background: url('/my_flask_project copy - Copy/static/images/hero-bg.png') center center/cover no-repeat;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+        .login-form {
+            max-width: 300px;
+            width: 100%;
+            border: 2px solid teal; /* Update to your preferred color */
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f8f9fa; /* Update to your preferred color */
+        }
+
+        .login-button {
+            width: 100%;
+            background-color: teal; /* Update to your preferred color */
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color:teal; /* Update to your preferred color */
+        }
+
+        .navbar-brand {
+            color: white; /* Update to your preferred color */
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-link {
+            color: white; /* Update to your preferred color */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar section -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">UltraSonix</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" href="intro.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="login.html">Login</a><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="prediction.html">Prediction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="doctors.html">Doctors</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline">
+                        <button class="btn my-2 my-sm-0 nav_search-btn" type="submit">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- End Navbar section -->
+
+    <div class="center-container">
+        <div class="container login-form">
+            <h1 class="text-center mb-4">Login</h1>
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required maxlength="20">
+                </div>
+                <button type="submit" class="btn btn-primary login-button">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
+
